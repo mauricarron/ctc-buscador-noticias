@@ -1,7 +1,10 @@
 import React from "react";
+import useSelect from "../hooks/useSelect";
 import styles from "./Formulario.module.css";
 
 const Formulario = () => {
+  const [categoria, SelectCategoria] = useSelect("");
+
   return (
     <div className={`row ${styles.buscador}`}>
       <div className="col s12 m8 offset-m2">
