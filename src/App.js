@@ -2,9 +2,11 @@ import React, { Fragment, useState, useEffect } from "react";
 import Header from "./components/Header";
 import Formulario from "./components/Formulario";
 import axios from "axios";
+import ListadoNoticias from "./components/ListadoNoticias";
 
 function App() {
   const [categoria, guardarCategoria] = useState("");
+  const [noticias, guardarNoticias] = useState([]);
 
   useEffect(() => {
     const consultarApi = async () => {
@@ -15,7 +17,7 @@ function App() {
         `category=${categoria}&` +
         `apiKey=${API_KEY}`;
       const noticias = await axios.get(url);
-      console.log(noticias.data.articles);
+      guardarNoticias(noticias.data.articles);
     };
     consultarApi();
   }, [categoria]);
@@ -25,6 +27,7 @@ function App() {
       <Header titulo="Buscador de Noticias" />
       <div className="container white">
         <Formulario guardarCategoria={guardarCategoria} />
+        <ListadoNoticias noticias={noticias} />
       </div>
     </Fragment>
   );
